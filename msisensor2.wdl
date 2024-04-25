@@ -106,8 +106,8 @@ task run_msisensor2 {
     output {
     	Float msisensor2_score=read_float("~{sample_id}.msisensor2.score")
         File msisensor2_output="~{sample_id}.msisensor2.output"
-        File msisensor2_output_dis="~{sample_id}.msisensor2.output_dis"
-        File msisensor2_output_somatic="~{sample_id}.msisensor2.output_somatic"
+        File msisensor2_output_dis="~{sample_id}.msisensor2.output.dis"
+        File msisensor2_output_somatic="~{sample_id}.msisensor2.output.somatic"
         File msisensor2_label="~{sample_id}.msisensor2_label.txt"
     }
 
