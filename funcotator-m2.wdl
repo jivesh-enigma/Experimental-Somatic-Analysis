@@ -170,8 +170,8 @@ workflow funcotator_workflow {
     output {
         
         # Output files into Workspace
-        File? funcotated_file = Funcotate.funcotated_output_file
-        File? funcotated_file_index = Funcotate.funcotated_output_file_index
+        File funcotated_file = Funcotate.funcotated_output_file
+        File funcotated_file_index = Funcotate.funcotated_output_file_index
     }
 }
 
