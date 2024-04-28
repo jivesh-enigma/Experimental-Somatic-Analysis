@@ -43,16 +43,6 @@ workflow msisensor2_workflow {
             num_threads=num_threads,
             num_preempt=num_preempt
     }
-    call file_transfer {
-        input:
-            inp_pair_id=pair_id,
-            bucket_path=destination_bucket_path,
-            inp_msisensor2_score=,
-            inp_msisensor2_output=,
-            inp_msisensor2_output_dis=,
-            inp_msisensor2_output_somatic=,
-            inp_msisensor2_label=
-    }
 
     output {
         File msisensor2_score = run_msisensor2.msisensor2_score
