@@ -1,6 +1,5 @@
 version 1.0
 
-import "https://raw.githubusercontent.com/gatk-workflows/seq-format-conversion/master/cram-to-bam.wdl" as cram_to_bam
 
 # Given a set of samples, combine segment files into a single file
 # for tumor-only analysis
@@ -8,8 +7,8 @@ import "https://raw.githubusercontent.com/gatk-workflows/seq-format-conversion/m
 workflow msisensor2_workflow {
     input {
         String pair_id
-        File cram
-        File crai
+        File tumor_bam
+        File tumor_bai
 
         # Inputs to go to cram_to_bam
         File ref_fasta
@@ -18,26 +17,17 @@ workflow msisensor2_workflow {
 
         
         Int memory=16
-        Int disk_space = ceil((size(cram,"GB") + size(crai,"GB") + size(ref_fasta,"GB") + size(ref_fasta_index,"GB") + size(ref_dict,"GB")) * 4)
+        Int disk_space = ceil((size(tumor_bam,"GB") + size(tumor_bai,"GB") + size(ref_fasta,"GB") + size(ref_fasta_index,"GB") + size(ref_dict,"GB")) * 4)
         Int num_threads = 20
         Int num_preempt = 3
 
     }
 
-    call cram_to_bam.CramToBamFlow {
-        input:
-            ref_fasta=ref_fasta,
-            ref_fasta_index=ref_fasta_index,
-            ref_dict=ref_dict,
-            input_cram=cram,
-            sample_name=pair_id
-    }
-
     call run_msisensor2 {
         input:
             sample_id=pair_id,
-            bam=CramToBamFlow.outputBam,
-            bai=CramToBamFlow.outputBai,
+            bam=tumor_bam,
+            bai=tumor_bai,
             memory=memory,
             disk_space=disk_space,
             num_threads=num_threads,
