@@ -45,7 +45,7 @@ workflow msisensor2_workflow {
     }
 
     output {
-        File msisensor2_score = run_msisensor2.msisensor2_score
+        Float msisensor2_score = run_msisensor2.msisensor2_score
         File msisensor2_output = run_msisensor2.msisensor2_output
         File msisensor2_output_dis = run_msisensor2.msisensor2_output_dis
         File msisensor2_output_somatic = run_msisensor2.msisensor2_output_somatic
