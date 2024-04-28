@@ -45,7 +45,7 @@ workflow msisensor2_workflow {
     }
 
     output {
-        Float msisensor2_score = run_msisensor2.msisensor2_score
+        File msisensor2_score = run_msisensor2.msisensor2_score
         File msisensor2_output = run_msisensor2.msisensor2_output
         File msisensor2_output_dis = run_msisensor2.msisensor2_output_dis
         File msisensor2_output_somatic = run_msisensor2.msisensor2_output_somatic
@@ -94,7 +94,7 @@ task run_msisensor2 {
     >>>
 
     output {
-    	Float msisensor2_score=read_float("~{sample_id}.msisensor2.score")
+    	File msisensor2_score="~{sample_id}.msisensor2.score"
         File msisensor2_output="~{sample_id}.msisensor2.output"
         File msisensor2_output_dis="~{sample_id}.msisensor2.output_dis"
         File msisensor2_output_somatic="~{sample_id}.msisensor2.output_somatic"
