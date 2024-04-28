@@ -18,7 +18,7 @@ workflow msisensor2_workflow {
 
         
         Int memory=16
-        Int disk_space = ceil((size(cram,"GB") + size(crai,"GB") + size(ref_fasta,"GB") + size(ref_fasta_index,"GB") + size(ref_dict"GB")) * 4)
+        Int disk_space = ceil((size(cram,"GB") + size(crai,"GB") + size(ref_fasta,"GB") + size(ref_fasta_index,"GB") + size(ref_dict,"GB")) * 4)
         Int num_threads = 20
         Int num_preempt = 3
 
