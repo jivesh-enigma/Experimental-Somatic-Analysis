@@ -73,8 +73,10 @@ task run_msisensor2 {
         with open("~{sample_id}.msisensor2.score",'r') as score_file:
             score = float(score_file.readlines()[0].split('\n')[0])
         
-        if score >= 3.5:
-            label="MSI"
+        if score >= 20:
+            label="MSI-High"
+        elif score >= 10 and score < 20::
+            label = "MSI-Low"
         else:
             label="MSS"
         
