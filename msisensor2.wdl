@@ -75,7 +75,7 @@ task run_msisensor2 {
         
         if score >= 20:
             label="MSI-High"
-        elif score >= 10 and score < 20::
+        elif score >= 10 and score < 20:
             label = "MSI-Low"
         else:
             label="MSS"
