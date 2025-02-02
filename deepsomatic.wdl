@@ -11,6 +11,9 @@ workflow DeepSomatic {
         String DeepSomatic_Model_Type
         String permanent_bucket_path
         File interval_bed
+
+        Int deepsomatic_ram_gb = 64
+        Int deepsomatic_additional_disk_gb = 50
     }
 
     call deepsomatic_task {
@@ -21,7 +24,9 @@ workflow DeepSomatic {
             cram = cram,
             crai = crai,
             DeepSomatic_Model_Type = DeepSomatic_Model_Type,
-            interval_bed = interval_bed
+            interval_bed = interval_bed,
+            ram_gb = deepsomatic_ram_gb,
+            additional_disk_gb = deepsomatic_additional_disk_gb
     }
 
     call deepsomatic_files_trasfer_permanent {
@@ -48,8 +53,8 @@ task deepsomatic_task {
         File crai
         String DeepSomatic_Model_Type
         File interval_bed
-        Int ram_gb = 8
-        Int additional_disk_gb = 10
+        Int ram_gb
+        Int additional_disk_gb
         Int input_size = ceil(size(cram,"GB") + size(ref_fasta,"GB")) * 4
         Int disk_gb = select_first([input_size, 100]) + additional_disk_gb
         Int preemptible = 1
