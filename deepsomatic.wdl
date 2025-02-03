@@ -33,12 +33,14 @@ workflow DeepSomatic {
         input:
             sample_id = sample_id,
             deepsomatic_vcf = deepsomatic_task.deepsomatic_vcf,
+            deepsomatic_vcf_index = deepsomatic_task.deepsomatic_vcf_index,
             deepsomatic_gvcf = deepsomatic_task.deepsomatic_gvcf,
             destination_bucket = permanent_bucket_path
     }
 
     output {
         String deepsomatic_vcf = deepsomatic_files_trasfer_permanent.deepsomatic_vcf_path
+        String deepsomatic_vcf_index = deepsomatic_files_trasfer_permanent.deepsomatic_vcf_index_path
         String deepsomatic_gvcf = deepsomatic_files_trasfer_permanent.deepsomatic_gvcf_path
     }
 }
@@ -76,11 +78,14 @@ task deepsomatic_task {
         --logging_dir=~{sample_id}.deepsomatic_logs \
         --intermediate_results_dir=intermediate_results_dir \
         --use_default_pon_filtering=true
+
+        bcftools index -t ~{sample_id}.deepsomatic.vcf.gz
     >>>
 
     output {
         Array[File] deepsomatic_logs = glob("~{sample_id}.deepsomatic_logs/*")
         File deepsomatic_vcf = "~{sample_id}.deepsomatic.vcf.gz"
+        File deepsomatic_vcf_index = "~{sample_id}.deepsomatic.vcf.gz.tbi"
         File deepsomatic_gvcf = "~{sample_id}.deepsomatic.g.vcf.gz"
     }
 
@@ -92,21 +97,25 @@ task deepsomatic_task {
     }
 }
 
+
 task deepsomatic_files_trasfer_permanent {
     input {
         String sample_id
         String destination_bucket
         File deepsomatic_vcf
+        File deepsomatic_vcf_index
         File deepsomatic_gvcf
     }
 
     command <<<
         gsutil -m cp ~{deepsomatic_vcf} ~{destination_bucket}/~{sample_id}/
+        gsutil -m cp ~{deepsomatic_vcf_index} ~{destination_bucket}/~{sample_id}/
         gsutil -m cp ~{deepsomatic_gvcf} ~{destination_bucket}/~{sample_id}/
     >>>
 
     output {
         String deepsomatic_vcf_path = "~{destination_bucket}/~{sample_id}/~{sample_id}.deepsomatic.vcf.gz"
+        String deepsomatic_vcf_index_path = "~{destination_bucket}/~{sample_id}/~{sample_id}.deepsomatic.vcf.gz.tbi"
         String deepsomatic_gvcf_path = "~{destination_bucket}/~{sample_id}/~{sample_id}.deepsomatic.g.vcf.gz"
     }
 
