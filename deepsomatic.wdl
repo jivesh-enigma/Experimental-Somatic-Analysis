@@ -78,8 +78,6 @@ task deepsomatic_task {
         --logging_dir=~{sample_id}.deepsomatic_logs \
         --intermediate_results_dir=intermediate_results_dir \
         --use_default_pon_filtering=true
-
-        bcftools index -t ~{sample_id}.deepsomatic.vcf.gz
     >>>
 
     output {
