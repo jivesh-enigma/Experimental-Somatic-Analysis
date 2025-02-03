@@ -106,8 +106,8 @@ task deepsomatic_files_trasfer_permanent {
     >>>
 
     output {
-        String deepsomatic_vcf_path = "~{sample_id}.deepsomatic.vcf.gz"
-        String deepsomatic_gvcf_path = "~{sample_id}.deepsomatic.g.vcf.gz"
+        String deepsomatic_vcf_path = "~{destination_bucket}/~{sample_id}/~{sample_id}.deepsomatic.vcf.gz"
+        String deepsomatic_gvcf_path = "~{destination_bucket}/~{sample_id}/~{sample_id}.deepsomatic.g.vcf.gz"
     }
 
     runtime {
