@@ -52,6 +52,12 @@ task AddStrandToMAF_Task {
         pwd
         ls -al
 
+        echo "finding python file"
+        echo "up"
+        ls ..
+        echo "UP"
+        ls ../..
+
         python ./pysam_strand_check.py \
         -bam ./tumor.bam \
         -maf ~{maf} \
