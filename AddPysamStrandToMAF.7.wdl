@@ -71,6 +71,6 @@ task AddStrandToMAF_Task {
         memory: "${memoryGb} GB"
         cpu: "${cpu}"
         disks: "local-disk ${diskSpaceGB} HDD"
-        bootDiskSizeGb: "${bootSpaceGB}"
+        bootDiskSizeGb: ${bootSpaceGB}
     }
 }
